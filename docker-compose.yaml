@@ -19,22 +19,40 @@ services:
     ports:
       - "8096:80"
 
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   marketplace-database:
     image: mysql:${MYSQL_VERSION:-latest}
     container_name: marketplace-mysql-dwh
     restart: always
     environment:
-      MYSQL_DATABASE: "marketplacemarketplace"
+      MYSQL_DATABASE: "marketplaceApp"
       MYSQL_USER: "marketplaceUser"
       MYSQL_PASSWORD: "123"
       MYSQL_ROOT_PASSWORD: "root"
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "--silent" ]
     ports:
-      - "3312:3306"
+      - "3306:3306"
     volumes:
       - marketplace_dwh:/var/lib/mysql
+    networks:
+      - marketplace-project
+
+  marketplace-test-database:
+    image: mysql:${MYSQL_VERSION:-latest}
+    container_name: marketplace-mysql-test
+    restart: always
+    environment:
+      MYSQL_DATABASE: "marketplace_test"
+      MYSQL_USER: "marketplaceUser"
+      MYSQL_PASSWORD: "123"
+      MYSQL_ROOT_PASSWORD: "root"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "--silent" ]
+    ports:
+      - "3310:3306"
+    volumes:
+      - marketplace_test_dwh:/var/lib/mysql
     networks:
       - marketplace-project
 
@@ -43,7 +61,7 @@ services:
     container_name: marketplace-phpmyadmin
     environment:
       MYSQL_ROOT_PASSWORD: Kimpa
-      MYSQL_DATABASE: marketplacemarketplace
+      MYSQL_DATABASE: marketplaceApp
       MYSQL_USER: marketplaceUser
       MYSQL_PASSWORD: 123
       PMA_HOST: marketplace-database
@@ -54,7 +72,7 @@ services:
       - 8083:80
 
 volumes:
-###> doctrine/doctrine-bundle ###
+  ###> doctrine/doctrine-bundle ###
   marketplace_dwh:
 
   marketplace_test_dwh:
