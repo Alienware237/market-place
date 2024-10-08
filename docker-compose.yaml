@@ -1,78 +1,60 @@
 version: '3'
 
 networks:
-  app-project:
+  marketplace-project:
     #      name: 50_default
     driver: bridge
 
 services:
 
-  app-project:
+  marketplace-project:
     build:
       dockerfile: Dockerfile
-    container_name: app-project
+    container_name: marketplace-project
     networks:
-      - app-project
+      - marketplace-project
     volumes:
       - '.:/var/www/html'
       - '/mnt/var:/mnt/var'
     ports:
-      - "8095:80"
+      - "8096:80"
 
 ###> doctrine/doctrine-bundle ###
-  app-database:
+  marketplace-database:
     image: mysql:${MYSQL_VERSION:-latest}
-    container_name: app-mysql-dwh
+    container_name: marketplace-mysql-dwh
     restart: always
     environment:
-      MYSQL_DATABASE: "appApp"
-      MYSQL_USER: "appUser"
+      MYSQL_DATABASE: "marketplacemarketplace"
+      MYSQL_USER: "marketplaceUser"
       MYSQL_PASSWORD: "123"
       MYSQL_ROOT_PASSWORD: "root"
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "--silent" ]
     ports:
-      - "3311:3306"
+      - "3312:3306"
     volumes:
-      - app_dwh:/var/lib/mysql
+      - marketplace_dwh:/var/lib/mysql
     networks:
-      - app-project
+      - marketplace-project
 
-  app-test-database:
-    image: mysql:${MYSQL_VERSION:-latest}
-    container_name: app-mysql-test
-    restart: always
-    environment:
-      MYSQL_DATABASE: "app_test"
-      MYSQL_USER: "appUser"
-      MYSQL_PASSWORD: "123"
-      MYSQL_ROOT_PASSWORD: "root"
-    healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "--silent" ]
-    ports:
-      - "3310:3306"
-    volumes:
-      - app_test_dwh:/var/lib/mysql
-    networks:
-      - app-project
-
-  app-phpmyadmin:
+  marketplace-phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    container_name: app-phpmyadmin
+    container_name: marketplace-phpmyadmin
     environment:
       MYSQL_ROOT_PASSWORD: Kimpa
-      MYSQL_DATABASE: appApp
-      MYSQL_USER: appUser
+      MYSQL_DATABASE: marketplacemarketplace
+      MYSQL_USER: marketplaceUser
       MYSQL_PASSWORD: 123
-      PMA_HOST: app-database
+      PMA_HOST: marketplace-database
     restart: always
     networks:
-      - app-project
+      - marketplace-project
     ports:
-      - 8082:80
+      - 8083:80
 
 volumes:
 ###> doctrine/doctrine-bundle ###
-  app_dwh:
+  marketplace_dwh:
 
-  app_test_dwh:
+  marketplace_test_dwh:

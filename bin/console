@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use okpt\app\project\Kernel;
+use okpt\marketplace\project\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Dotenv\Dotenv;
 

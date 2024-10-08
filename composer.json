@@ -1,6 +1,6 @@
 {
-    "name": "okpt/app-project",
-    "description": "Project bundle skeleton",
+    "name": "okpt/marketplace-project",
+    "description": "Market place project",
     "keywords": ["okpt","importer"],
     "type": "project",
     "version": "0.0.1",
@@ -119,7 +119,7 @@
     },
     "autoload": {
         "psr-4": {
-            "okpt\\app\\project\\": "src/"
+            "okpt\\marketplace\\project\\": "src/"
         }
     },
     "autoload-dev": {

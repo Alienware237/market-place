@@ -36,11 +36,7 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install
 
 # Set permissions
-Run adduser --disabled-password --gecos '' ${USER} \
-    && usermod -a -G www-data ${USER} \
-    && chown -R ${USER}:www-data /var/www/html/var \
-RUN chown -R www-data:www-data /var/www/html/var/log
-RUN chmod -R 775 /var/www/html/var/log
+
 
 # die zu Symfony passende Configuration
 COPY docker/apache/000-default.conf /etc/apache2/sites-available/000-default.conf

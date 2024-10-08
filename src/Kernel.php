@@ -1,6 +1,6 @@
 <?php
 
-namespace okpt\app\project;
+namespace okpt\marketplace\project;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
